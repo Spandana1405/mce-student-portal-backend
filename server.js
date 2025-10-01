@@ -118,6 +118,9 @@ process.on('uncaughtException', (err) => {
   console.log('Uncaught Exception:', err.message);
   process.exit(1);
 });
+app.get("/", (req, res) => {
+  res.send("🚀 MCE Student Portal Backend is running!");
+});
 
 startServer();
 
