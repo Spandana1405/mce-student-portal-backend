@@ -31,10 +31,21 @@ const limiter = rateLimit({
 app.use('/api/', limiter);
 
 // CORS configuration
-app.use(cors({
-  origin: ['http://localhost:8080', 'http://localhost:5173'],
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: [
+      "http://localhost:8080",
+      "http://localhost:5173",
+      "https://mce-student-portal-frontend-mu.vercel.app", // ✅ removed trailing slash
+      "https://mce-student-portal-frontend.vercel.app", // ✅ also add main vercel domain
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // ✅ allow OPTIONS
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
+  })
+);
+
+app.options('*', cors()); // Enable pre-flight for all routes
 
 // Body parsing middleware
 app.use(express.json({ limit: '10mb' }));
